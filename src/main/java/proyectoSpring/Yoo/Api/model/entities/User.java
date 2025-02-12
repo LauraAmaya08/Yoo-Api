@@ -1,13 +1,18 @@
 package proyectoSpring.Yoo.Api.model.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
 @Entity
 @Table(name = "usuario")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -40,21 +45,18 @@ public class User {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Publicacion> publicaciones;
 
-    public User(Integer id, String nombre, String nombreUser, String email, String password, String biografia, String fotoPerfil, LocalDate fechaNac, String telefono, List<Publicacion> publicaciones) {
-        this.id = id;
+    public User(String nombre, String nombreUser, String email, String password, LocalDate fechaNac, String telefono) {
         this.nombre = nombre;
         this.nombreUser = nombreUser;
         this.email = email;
         this.password = password;
-        this.biografia = biografia;
-        this.fotoPerfil = fotoPerfil;
         this.fechaNac = fechaNac;
         this.telefono = telefono;
-        this.publicaciones = publicaciones;
     }
 
     public User() {
     }
+
 
     public Integer getId() {
         return id;
@@ -72,9 +74,6 @@ public class User {
         this.nombre = nombre;
     }
 
-    public String getNombreUser() {
-        return nombreUser;
-    }
 
     public void setNombreUser(String nombreUser) {
         this.nombreUser = nombreUser;
@@ -88,8 +87,39 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.nombreUser;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
