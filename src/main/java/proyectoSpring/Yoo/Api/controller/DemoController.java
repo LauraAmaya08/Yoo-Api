@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class DemoController {
 
-    @PostMapping()
+    @PostMapping(value = "demo")
     public String welcome(){
         return "welcome from security endpoint";
     }
