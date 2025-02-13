@@ -2,12 +2,14 @@ package proyectoSpring.Yoo.Api.Auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import proyectoSpring.Yoo.Api.jwt.JwtService;
 import proyectoSpring.Yoo.Api.model.entities.User;
 import proyectoSpring.Yoo.Api.repository.UserRepository;
+
+import java.time.LocalDate;
+import java.time.Period;
 
 @Service
 public class AuthService {
@@ -33,6 +35,10 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
+        int edad = Period.between(request.getFechaNac(), LocalDate.now()).getYears();
+        if (edad < 14){
+            throw new IllegalArgumentException("Usuario menor de 14 años");
+        }
         User user = new User(request.getNombre(),request.getUsername(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getFechaNac(),request.getTelefono());
         System.out.println(user);
         userRepository.save(user);
