@@ -4,6 +4,6 @@ import proyectoSpring.Yoo.Api.model.entities.User;
 
 public interface IUserService {
         public User obtenerUsuario(String username);
-        public void actualizarUser(User user);
+        public User actualizarUser(String username, User user);
 
 }
