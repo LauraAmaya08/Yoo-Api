@@ -14,11 +14,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "demo")
-    public String welcome(){
-        return "welcome from security endpoint";
-    }
-
     @GetMapping("/profile/{username}")
     public ResponseEntity<User> getPerfil(@PathVariable String username) {
         User user = userService.obtenerUsuario(username);
