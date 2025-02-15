@@ -24,12 +24,12 @@ public class PublicacionController {
         this.userService = userService;
     }
 
-    @GetMapping("/publicaciones")
+    @GetMapping("/publicaciones/cronologico")
     public ResponseEntity<List<Publicacion>> obtenerPublicacionesOrdenadasCronologicamente( @RequestParam(defaultValue = "true") boolean ascendente) {
         return ResponseEntity.ok(publicacionService.obtenerPublicacionesOrdenadasCronologicamente(ascendente));
     }
 
-    @GetMapping("/publicaciones")
+    @GetMapping("/publicaciones/trendy")
     public ResponseEntity<List<Publicacion>> obtenerPublicacionesOrdenadasPorRelevancia() {
         return ResponseEntity.ok(publicacionService.obtenerPublicacionesOrdenadasPorRelevancia());
     }

@@ -6,6 +6,7 @@ import proyectoSpring.Yoo.Api.model.entities.Etiqueta;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
 import proyectoSpring.Yoo.Api.model.entities.User;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -15,5 +16,4 @@ public interface PublicacionRepository extends JpaRepository<Publicacion, Intege
     List<Publicacion> findAllByOrderByFechaPublicacionAsc();
     List<Publicacion> findAllByOrderByFechaPublicacionDesc();
     List<Publicacion> findAllByOrderByLikesDesc();
-
 }

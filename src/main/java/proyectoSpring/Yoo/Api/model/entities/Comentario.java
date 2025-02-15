@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "comentario")
@@ -25,6 +26,11 @@ public class Comentario {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    @ManyToMany
+    @JoinTable(name = "comentario_menciones", joinColumns = @JoinColumn(name = "comentario_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private List<User> usuariosMencionados;
+
+
     @CreationTimestamp
     @Column(name = "fecha", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp fecha;
@@ -32,10 +38,11 @@ public class Comentario {
     @Column(name = "texto", nullable = false, length = 200)
     private String texto;
 
-    public Comentario(Integer id, Publicacion publicacion, User user, Timestamp fecha, String texto) {
+    public Comentario(Integer id, Publicacion publicacion, User user, List<User> usuariosMencionados, Timestamp fecha, String texto) {
         this.id = id;
         this.publicacion = publicacion;
         this.user = user;
+        this.usuariosMencionados = usuariosMencionados;
         this.fecha = fecha;
         this.texto = texto;
     }
@@ -67,6 +74,14 @@ public class Comentario {
         this.user = user;
     }
 
+    public List<User> getUsuariosMencionados() {
+        return usuariosMencionados;
+    }
+
+    public void setUsuariosMencionados(List<User> usuariosMencionados) {
+        this.usuariosMencionados = usuariosMencionados;
+    }
+
     public Timestamp getFecha() {
         return fecha;
     }
@@ -89,6 +104,7 @@ public class Comentario {
                 "id=" + id +
                 ", publicacion=" + publicacion +
                 ", user=" + user +
+                ", usuariosMencionados=" + usuariosMencionados +
                 ", fecha=" + fecha +
                 ", texto='" + texto + '\'' +
                 '}';

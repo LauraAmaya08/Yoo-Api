@@ -73,7 +73,6 @@ public class AuthService {
         if (principal == null) {
             return null;
         }
-
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
         } else {
