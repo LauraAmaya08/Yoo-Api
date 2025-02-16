@@ -1,6 +1,7 @@
 package proyectoSpring.Yoo.Api.service.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 import proyectoSpring.Yoo.Api.model.entities.Etiqueta;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
 import proyectoSpring.Yoo.Api.model.entities.User;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class PublicacionService implements IPublicacionInterface {
     final private PublicacionRepository publicacionRepository;
     final private UserRepository userRepository;
@@ -52,7 +54,7 @@ public class PublicacionService implements IPublicacionInterface {
 
     @Override
     public List<Publicacion> obtenerPublicacionesPorUser(User user) {
-        return publicacionRepository.findByUser(user);
+        return publicacionRepository.findByUsuario(user);
     }
 
     @Override
@@ -63,9 +65,9 @@ public class PublicacionService implements IPublicacionInterface {
     @Override
     public List<Publicacion> obtenerPublicacionesOrdenadasCronologicamente(boolean ascendente) {
         if (ascendente) {
-            return publicacionRepository.findAllByOrderByFechaPublicacionAsc();
+            return publicacionRepository.findAllByOrderByFechaCreacionAsc();
         } else {
-            return publicacionRepository.findAllByOrderByFechaPublicacionDesc();
+            return publicacionRepository.findAllByOrderByFechaCreacionDesc();
         }
     }
 

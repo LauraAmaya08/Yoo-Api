@@ -9,8 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ComentarioRepository extends JpaRepository<Comentario, Integer> {
-    public Comentario crearComentario(Comentario comentario, Integer idPubli);
-    public Comentario eliminarComentario(Integer idComent);
+    public void deleteById(Integer idComent);
     List<Comentario> findByPublicacion(Publicacion publicacion);
     Integer countByPublicacion(Publicacion publicacion);
 }

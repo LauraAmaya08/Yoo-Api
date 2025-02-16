@@ -1,5 +1,6 @@
 package proyectoSpring.Yoo.Api.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ public class User implements UserDetails {
     @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
 
+    @JsonProperty("nombreUser")
     @Column(name = "nombreUser", nullable = false, unique = true, length = 100)
     private String nombreUser;
 

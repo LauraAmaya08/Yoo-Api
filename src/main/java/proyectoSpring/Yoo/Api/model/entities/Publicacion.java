@@ -40,17 +40,29 @@ public class Publicacion {
     @JoinTable( name = "etiqueta_publicacion", joinColumns = @JoinColumn(name = "publicacion_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
     private List<Etiqueta> etiquetas;
 
-    public Publicacion(List<Etiqueta> etiquetas, List<User> menciones, Timestamp fechaCreacion, User usuario, String imagen, String texto, Integer id) {
+    @ManyToMany
+    @JoinTable( name = "likes_publicacion", joinColumns = @JoinColumn(name = "publicacion_id"), inverseJoinColumns = @JoinColumn(name = "likes_id"))
+    private List<Likes> likes;
+
+    public Publicacion(List<Likes> likes, List<Etiqueta> etiquetas, List<User> menciones, Timestamp fechaCreacion, User usuario, String imagen, String texto) {
+        this.likes = likes;
         this.etiquetas = etiquetas;
         this.menciones = menciones;
         this.fechaCreacion = fechaCreacion;
         this.usuario = usuario;
         this.imagen = imagen;
         this.texto = texto;
-        this.id = id;
     }
 
     public Publicacion() {
+    }
+
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
     }
 
     public List<Etiqueta> getEtiquetas() {

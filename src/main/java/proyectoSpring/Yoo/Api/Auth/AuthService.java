@@ -1,6 +1,5 @@
 package proyectoSpring.Yoo.Api.Auth;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +52,7 @@ public class AuthService {
         if (edad < 14){
             throw new IllegalArgumentException("Usuario menor de 14 años");
         }
-        User user = new User(request.getNombre(),request.getUsername(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getFechaNac(),request.getTelefono());
+        User user = new User(request.getNombre(),request.getNombreUser(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getFechaNac(),request.getTelefono());
         userRepository.save(user);
         String token = jwtService.getToken(user);
         ResponseCookie jwtCookie = ResponseCookie.from("jwt", token)

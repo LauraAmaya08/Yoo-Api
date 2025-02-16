@@ -50,7 +50,7 @@ public class ComentarioService implements IComentarioInterface {
     @Override
     public void eliminarComentario(Integer id, Publicacion publicacion) {
         Comentario comentarioExistente = encontrarComentario(id, publicacion);
-        comentarioRepository.eliminarComentario(comentarioExistente.getId());
+        comentarioRepository.deleteById(comentarioExistente.getId());
     }
 
     @Override

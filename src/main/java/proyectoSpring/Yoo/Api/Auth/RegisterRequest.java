@@ -11,8 +11,8 @@ public class RegisterRequest {
     String telefono;
 
 
-    public RegisterRequest(String username, String nombre, String password, String email, LocalDate fechaNac, String telefono) {
-        this.nombreUser = username;
+    public RegisterRequest(String nombreUser, String nombre, String password, String email, LocalDate fechaNac, String telefono) {
+        this.nombreUser = nombreUser;
         this.nombre = nombre;
         this.password = password;
         this.email = email;
@@ -23,11 +23,11 @@ public class RegisterRequest {
     public RegisterRequest() {
     }
 
-    public String getUsername() {
+    public String getNombreUser() {
         return nombreUser;
     }
 
-    public void setUsername(String username) {
+    public void setNombreUser(String username) {
         this.nombreUser = username;
     }
 
