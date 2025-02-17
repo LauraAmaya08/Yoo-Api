@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @Column(name = "telefono", length = 13)
     private String telefono;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Publicacion> publicaciones;
 
     public User(String nombre, String nombreUser, String email, String password, LocalDate fechaNac, String telefono) {

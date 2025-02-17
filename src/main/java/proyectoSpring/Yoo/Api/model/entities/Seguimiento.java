@@ -30,11 +30,10 @@ public class Seguimiento {
     @Column(name = "fechaSeguimiento", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp fechaSeguimiento;
 
-    public Seguimiento(Integer id, User idUserSeguido, User idUser, Timestamp fechaSeguimiento) {
-        this.id = id;
+    public Seguimiento(User idUserSeguido, User idUser) {
         this.idUserSeguido = idUserSeguido;
         this.idUser = idUser;
-        this.fechaSeguimiento = fechaSeguimiento;
+        this.fechaSeguimiento = getFechaSeguimiento();
     }
 
     public Seguimiento() {
