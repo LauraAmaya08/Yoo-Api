@@ -61,7 +61,7 @@ public class AuthService {
                 .secure(true)
                 .path("/")
                 .maxAge(86400)
-                .sameSite("Strict")
+                .sameSite("None")
                 .build();
         response.addHeader("Set-Cookie", jwtCookie.toString());
         AuthResponse authResponse = new AuthResponse(token);
@@ -73,8 +73,8 @@ public class AuthService {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
-                .maxAge(0)  // Esto elimina la cookie
-                .sameSite("Strict")
+                .maxAge(0)
+                .sameSite("None")
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
