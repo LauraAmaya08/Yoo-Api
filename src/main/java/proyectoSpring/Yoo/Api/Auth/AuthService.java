@@ -1,5 +1,6 @@
 package proyectoSpring.Yoo.Api.Auth;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,6 +66,18 @@ public class AuthService {
         response.addHeader("Set-Cookie", jwtCookie.toString());
         AuthResponse authResponse = new AuthResponse(token);
         return authResponse;
+    }
+
+    public void logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(0)  // Esto elimina la cookie
+                .sameSite("Strict")
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 
     public String getAuthenticatedUsername() {

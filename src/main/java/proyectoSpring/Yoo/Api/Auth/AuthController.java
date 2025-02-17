@@ -43,6 +43,12 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        authService.logout(response);
+        return ResponseEntity.ok("Logout exitoso, cookie eliminada.");
+    }
+
     private Optional<String> getTokenFromRequest(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return Optional.empty();
