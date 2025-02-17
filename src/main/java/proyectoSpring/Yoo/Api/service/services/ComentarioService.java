@@ -1,5 +1,6 @@
 package proyectoSpring.Yoo.Api.service.services;
 
+import org.springframework.stereotype.Service;
 import proyectoSpring.Yoo.Api.model.entities.Comentario;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
 import proyectoSpring.Yoo.Api.model.entities.User;
@@ -10,9 +11,11 @@ import proyectoSpring.Yoo.Api.service.interfaces.IComentarioInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class ComentarioService implements IComentarioInterface {
     private final ComentarioRepository comentarioRepository;
     private final PublicacionRepository publicacionRepository;
@@ -35,22 +38,34 @@ public class ComentarioService implements IComentarioInterface {
     }
 
     @Override
+    public List<Comentario> encontrarComentarios(Publicacion publicacion) {
+        return comentarioRepository.findByPublicacion(publicacion);
+    }
+
+    @Override
     public Comentario encontrarComentario(Integer id, Publicacion publicacion) {
-        return comentarioRepository.findById(id).filter(comentario -> comentario.getPublicacion().equals(publicacion)).orElseThrow(() -> new RuntimeException("Comentario no encontrado en la publicación dada"));
-    }
-
-    @Override
-    public Comentario actualizarComentario(Integer id, Comentario nuevoComentario, Publicacion publicacion) {
-        Comentario comentarioExistente = encontrarComentario(id, publicacion);
-        comentarioExistente.setTexto(nuevoComentario.getTexto());
-        return comentarioRepository.save(comentarioExistente);
+        return comentarioRepository.findById(id)
+                .filter(comentario -> comentario.getPublicacion().equals(publicacion))
+                .orElseThrow(() -> new RuntimeException("Comentario no encontrado en la publicación dada"));
     }
 
 
     @Override
-    public void eliminarComentario(Integer id, Publicacion publicacion) {
+    public Comentario actualizarComentario(Integer userid,Integer id, Comentario nuevoComentario, Publicacion publicacion) {
         Comentario comentarioExistente = encontrarComentario(id, publicacion);
-        comentarioRepository.deleteById(comentarioExistente.getId());
+        if (Objects.equals(comentarioExistente.getUser().getId(), userid)){
+            comentarioExistente.setTexto(nuevoComentario.getTexto());
+            return comentarioRepository.save(comentarioExistente);
+        } return null;
+    }
+
+
+    @Override
+    public void eliminarComentario(Integer userid,Integer id, Publicacion publicacion) {
+        Comentario comentarioExistente = encontrarComentario(id, publicacion);
+        if (Objects.equals(comentarioExistente.getUser().getId(), userid)){
+            comentarioRepository.deleteById(comentarioExistente.getId());
+        }
     }
 
     @Override

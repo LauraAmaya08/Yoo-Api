@@ -13,7 +13,7 @@ import proyectoSpring.Yoo.Api.service.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/publicaciones")
+@RequestMapping("api/v1/publicaciones")
 public class PublicacionController {
 
     private final PublicacionService publicacionService;
