@@ -1,13 +1,19 @@
 package proyectoSpring.Yoo.Api.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Entity
 @Table(name = "publicacion")
 public class Publicacion {
@@ -20,7 +26,7 @@ public class Publicacion {
     @Column(name = "texto", nullable = false, length = 500)
     private String texto;
 
-    @Column(name = "imagen", length = 100)
+    @Column(name = "imagen", length = 500)
     private String imagen;
 
     @ManyToOne
@@ -32,23 +38,24 @@ public class Publicacion {
     @Column(name = "fechaCreacion", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp fechaCreacion;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable( name = "menciones_publicacion", joinColumns = @JoinColumn(name = "publicacion_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<User> menciones;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable( name = "etiqueta_publicacion", joinColumns = @JoinColumn(name = "publicacion_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
     private List<Etiqueta> etiquetas;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable( name = "likes_publicacion", joinColumns = @JoinColumn(name = "publicacion_id"), inverseJoinColumns = @JoinColumn(name = "likes_id"))
+
     private List<Likes> likes;
 
-    public Publicacion(List<Likes> likes, List<Etiqueta> etiquetas, List<User> menciones, Timestamp fechaCreacion, User usuario, String imagen, String texto) {
-        this.likes = likes;
+    public Publicacion(List<Etiqueta> etiquetas, List<User> menciones, User usuario, String imagen, String texto) {
+        this.likes = null;
         this.etiquetas = etiquetas;
         this.menciones = menciones;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = getFechaCreacion();
         this.usuario = usuario;
         this.imagen = imagen;
         this.texto = texto;

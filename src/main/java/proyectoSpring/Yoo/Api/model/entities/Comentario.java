@@ -26,7 +26,7 @@ public class Comentario {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "comentario_menciones", joinColumns = @JoinColumn(name = "comentario_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<User> usuariosMencionados;
 

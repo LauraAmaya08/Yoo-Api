@@ -30,6 +30,9 @@ public class PublicacionService implements IPublicacionInterface {
     }
 
     public Publicacion crearPublicacion(Publicacion publicacion) {
+        if (publicacion.getMenciones() == null) {
+            publicacion.setMenciones(new ArrayList<>());
+        }
         Publicacion nuevaPublicacion = publicacionRepository.save(publicacion);
         List<User> usuariosMencionados = getUsuariosMencionados(publicacion.getTexto());
         nuevaPublicacion.getMenciones().addAll(usuariosMencionados);

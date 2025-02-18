@@ -1,5 +1,6 @@
 package proyectoSpring.Yoo.Api.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -13,7 +14,8 @@ public class Etiqueta {
     @Column(name = "texto", unique = true, length = 50, nullable = false)
     private String texto;
 
-    @ManyToMany(mappedBy = "etiquetas")
+    @ManyToMany(mappedBy = "etiquetas", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Publicacion> publicaciones;
 
     public Etiqueta(Integer id, String texto, List<Publicacion> publicaciones) {
