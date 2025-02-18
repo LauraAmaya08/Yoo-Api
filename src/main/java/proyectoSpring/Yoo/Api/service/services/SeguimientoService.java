@@ -92,11 +92,9 @@ public class SeguimientoService implements ISeguimientoInterface {
     }
 
     @Override
-    public List<PublicacionDTO> obtenerPublicacionesDeSeguidos(Integer usuarioId) {
+    public List<Publicacion> obtenerPublicacionesDeSeguidos(Integer usuarioId) {
         List<Publicacion> publicaciones = seguimientoRepository.findPublicacionesByUsuarioSeguidos(usuarioId);
-        return publicaciones.stream()
-                .map(this::convertToPublicacionDTO)
-                .collect(Collectors.toList());
+        return publicaciones;
     }
 
     @Override

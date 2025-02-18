@@ -4,11 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import proyectoSpring.Yoo.Api.model.DTO.PublicacionDTO;
 import proyectoSpring.Yoo.Api.model.DTO.SeguimientoDTO;
 import proyectoSpring.Yoo.Api.model.DTO.UserDTO;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
-import proyectoSpring.Yoo.Api.model.entities.Seguimiento;
 import proyectoSpring.Yoo.Api.model.entities.User;
 import proyectoSpring.Yoo.Api.service.interfaces.ISeguimientoInterface;
 
@@ -70,7 +68,7 @@ public class SeguimientoController {
     }
 
     @GetMapping("/{usuarioId}/publicaciones")
-    public ResponseEntity<List<PublicacionDTO>> obtenerPublicacionesDeSeguidos(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<Publicacion>> obtenerPublicacionesDeSeguidos(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(seguimientoService.obtenerPublicacionesDeSeguidos(usuarioId));
     }
 
