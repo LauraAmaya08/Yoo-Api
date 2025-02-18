@@ -79,6 +79,16 @@ public class LikeController {
         return ResponseEntity.ok(totalLikes);
     }
 
+    @GetMapping("/status/{usuarioId}")
+    public Boolean getLikeStatus(@PathVariable Integer usuarioId,
+                                 @RequestParam Integer publicacionId) {
 
+        User usuario = userRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        Publicacion publicacion = publicacionRepository.findById(publicacionId)
+                .orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
+
+        return likesRepository.findByUserAndPublicacion(usuario, publicacion).isPresent();
+    }
 }
