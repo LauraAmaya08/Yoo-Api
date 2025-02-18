@@ -31,11 +31,9 @@ public class Likes {
     @Column(name = "fechaInteraccion", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp fechaInteraccion;
 
-    public Likes(Integer id, Publicacion publicacion, User user, Timestamp fechaInteraccion) {
-        this.id = id;
+    public Likes(Publicacion publicacion, User user) {
         this.publicacion = publicacion;
         this.user = user;
-        this.fechaInteraccion = fechaInteraccion;
     }
 
     public Likes() {
