@@ -13,6 +13,9 @@ public class SeguimientoDTO {
         this.seguidor = seguidor;
     }
 
+    public SeguimientoDTO() {
+    }
+
     // Getters y Setters
     public Integer getId() {
         return id;

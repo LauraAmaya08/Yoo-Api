@@ -18,7 +18,18 @@ public class UserDTO {
     private List<Publicacion> publicaciones;
 
     public UserDTO(Integer id, String nombre, String nombreUser, String email, String biografia,
-                   String fotoPerfil, LocalDate fechaNac, String telefono, List<Publicacion> publicaciones) {
+                   String fotoPerfil, LocalDate fechaNac, String telefono) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nombreUser = nombreUser;
+        this.email = email;
+        this.biografia = biografia;
+        this.fotoPerfil = fotoPerfil;
+        this.fechaNac = fechaNac;
+        this.telefono = telefono;
+    }
+
+    public UserDTO(Integer id, String nombre, String nombreUser, String email, String biografia, String fotoPerfil, LocalDate fechaNac, String telefono, List<Publicacion> publicaciones) {
         this.id = id;
         this.nombre = nombre;
         this.nombreUser = nombreUser;
@@ -28,6 +39,9 @@ public class UserDTO {
         this.fechaNac = fechaNac;
         this.telefono = telefono;
         this.publicaciones = publicaciones;
+    }
+
+    public UserDTO() {
     }
 
     // Getters and Setters

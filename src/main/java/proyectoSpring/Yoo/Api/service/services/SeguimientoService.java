@@ -25,7 +25,7 @@ public class SeguimientoService implements ISeguimientoInterface {
     }
 
     private UserDTO convertToUserDTO(User user) {
-        return new UserDTO(user.getId(), user.getNombre(), user.getUsername(), user.getEmail(), user.getBiografia(), user.getFotoPerfil(), user.getFechaNac(), user.getTelefono(), user.getPublicaciones());
+        return new UserDTO(user.getId(), user.getNombre(), user.getUsername(), user.getEmail(), user.getBiografia(), user.getFotoPerfil(), user.getFechaNac(), user.getTelefono());
     }
 
     private SeguimientoDTO convertToSeguimientoDTO(Seguimiento seguimiento) {

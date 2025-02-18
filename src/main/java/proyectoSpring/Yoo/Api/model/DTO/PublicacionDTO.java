@@ -15,6 +15,9 @@ public class PublicacionDTO {
         this.fecha = fecha;
     }
 
+    public PublicacionDTO() {
+    }
+
     // Getters y Setters
     public Integer getId() {
         return id;
