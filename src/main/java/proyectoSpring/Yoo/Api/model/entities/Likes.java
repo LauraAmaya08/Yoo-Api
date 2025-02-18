@@ -9,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "likes",  uniqueConstraints = @UniqueConstraint(columnNames = {"publicacion","user"}))
+@Table(name = "likes")
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

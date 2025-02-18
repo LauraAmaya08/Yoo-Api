@@ -32,7 +32,7 @@ public class LikeController {
     }
 
     @PostMapping("/crear/{usuarioId}")
-    public ResponseEntity<Likes> crearMeGusta(@RequestBody Map<String, Integer> request, @PathVariable Integer usuarioId) {
+    public ResponseEntity<?> crearMeGusta(@RequestBody Map<String, Integer> request, @PathVariable Integer usuarioId) {
         Integer publicacionId = request.get("publicacionId");
         Optional<User> usuarioOpt = userRepository.findById(usuarioId);
         Optional<Publicacion> publiOpt = publicacionRepository.findById(publicacionId);
@@ -42,8 +42,16 @@ public class LikeController {
         if (!publiOpt.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+
         User usuario = usuarioOpt.get();
         Publicacion publicacion = publiOpt.get();
+
+        // ✅ Verificar si el usuario ya ha dado like
+        Optional<Likes> existingLike = likesRepository.findByUserAndPublicacion(usuario, publicacion);
+        if (existingLike.isPresent()) {
+            return ResponseEntity.badRequest().body("Ya has dado like a esta publicación");
+        }
+
         Likes likeCrear = new Likes(publicacion, usuario);
         Likes likeNuevo = likeService.crearLike(likeCrear);
         return ResponseEntity.ok(likeNuevo);
