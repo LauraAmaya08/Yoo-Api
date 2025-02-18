@@ -4,6 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import proyectoSpring.Yoo.Api.model.DTO.PublicacionDTO;
+import proyectoSpring.Yoo.Api.model.DTO.SeguimientoDTO;
+import proyectoSpring.Yoo.Api.model.DTO.UserDTO;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
 import proyectoSpring.Yoo.Api.model.entities.Seguimiento;
 import proyectoSpring.Yoo.Api.model.entities.User;
@@ -30,12 +33,12 @@ public class SeguimientoController {
     }
 
     @GetMapping("/{usuarioId}/seguidos")
-    public ResponseEntity<List<Seguimiento>> obtenerSeguidos(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<SeguimientoDTO>> obtenerSeguidos(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(seguimientoService.obtenerSeguidos(usuarioId));
     }
 
     @GetMapping("/{usuarioId}/seguidores")
-    public ResponseEntity<List<Seguimiento>> obtenerSeguidores(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<SeguimientoDTO>> obtenerSeguidores(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(seguimientoService.obtenerSeguidores(usuarioId));
     }
 
@@ -67,12 +70,12 @@ public class SeguimientoController {
     }
 
     @GetMapping("/{usuarioId}/publicaciones")
-    public ResponseEntity<List<Publicacion>> obtenerPublicacionesDeSeguidos(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<PublicacionDTO>> obtenerPublicacionesDeSeguidos(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(seguimientoService.obtenerPublicacionesDeSeguidos(usuarioId));
     }
 
     @GetMapping("/{usuarioId}/noSeguidos")
-    public ResponseEntity<List<User>> obtenerUsuariosNoSeguidos(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<UserDTO>> obtenerUsuariosNoSeguidos(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(seguimientoService.obtenerUsuariosNoSeguidos(usuarioId));
     }
 }
