@@ -1,10 +1,12 @@
 package proyectoSpring.Yoo.Api.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyectoSpring.Yoo.Api.model.entities.Likes;
 import proyectoSpring.Yoo.Api.model.entities.Publicacion;
 import proyectoSpring.Yoo.Api.model.entities.User;
+import proyectoSpring.Yoo.Api.repository.LikesRepository;
 import proyectoSpring.Yoo.Api.repository.PublicacionRepository;
 import proyectoSpring.Yoo.Api.repository.UserRepository;
 import proyectoSpring.Yoo.Api.service.services.LikeService;
@@ -18,15 +20,15 @@ import java.util.Optional;
 @RequestMapping("api/v1/likes")
 public class LikeController {
     private final LikeService likeService;
-    private final PublicacionService publicacionService;
     private final UserRepository userRepository;
     private final PublicacionRepository publicacionRepository;
+    private final LikesRepository likesRepository;
 
-    public LikeController(LikeService likeService, PublicacionService publicacionService, UserRepository userRepository, PublicacionRepository publicacionRepository) {
+    public LikeController(LikeService likeService, PublicacionService publicacionService, UserRepository userRepository, PublicacionRepository publicacionRepository, LikesRepository likesRepository) {
         this.likeService = likeService;
-        this.publicacionService = publicacionService;
         this.userRepository = userRepository;
         this.publicacionRepository = publicacionRepository;
+        this.likesRepository = likesRepository;
     }
 
     @PostMapping("/crear/{usuarioId}")
@@ -47,9 +49,24 @@ public class LikeController {
         return ResponseEntity.ok(likeNuevo);
     }
 
-    @DeleteMapping("/eliminar")
-    public ResponseEntity<String> eliminarLike(@RequestBody Likes like) {
-        likeService.eliminarLike(like);
+    @DeleteMapping("/eliminar/{usuarioId}")
+    public ResponseEntity<String> eliminarLike(@PathVariable Integer usuarioId,
+                                               @RequestParam Integer publicacionId) {
+        Optional<User> usuarioOpt = userRepository.findById(usuarioId);
+        Optional<Publicacion> publiOpt = publicacionRepository.findById(publicacionId);
+
+        if (!usuarioOpt.isPresent() || !publiOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User usuario = usuarioOpt.get();
+        Publicacion publicacion = publiOpt.get();
+
+        Optional<Likes> likeOpt = likesRepository.findByUserAndPublicacion(usuario, publicacion);
+        if (!likeOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El like no existe");
+        }
+        likeService.eliminarLike(likeOpt.get());
         return ResponseEntity.ok("Like eliminado correctamente");
     }
 
