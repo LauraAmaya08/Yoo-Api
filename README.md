@@ -69,7 +69,7 @@ El sistema incorpora **autenticación con JWT**, asegurando que solo usuarios au
 <img src="Diagrama ER de red social Yoo!.png"/>
 
 ## Enlaces
-- [Repositorio Frontend]((https://github.com/LauraAmaya08/yoo-app))
+- [Repositorio Frontend]((https://github.com/LauraAmaya08/yoo-app)
 
 ## Últimos Hashes de Commits
 ### Frontend:
